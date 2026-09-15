@@ -8,48 +8,81 @@
 </head>
 <body>
     <header class="encabezado">
-        <h1>GamePlanet</h1>
-        <p>Programación y desarrollo de videojuegos</p>
+        <div class="encabezado-contenido">
+            <span class="logo">GP</span>
+            <div>
+                <h1>GamePlanet</h1>
+                <p>Tu espacio para jugar, progresar y mejorar.</p>
+            </div>
+        </div>
     </header>
 
     <main class="contenedor">
-        <section class="tarjeta">
-            <h2>Registro de jugador</h2>
-            <input id="nombreRegistro" type="text" placeholder="Nombre del jugador">
-            <input id="correoRegistro" type="email" placeholder="Correo electrónico">
-            <input id="passwordRegistro" type="password" placeholder="Contraseña">
-            <button id="btnRegistro">Registrar jugador</button>
+        <section class="bienvenida">
+            <div>
+                <span class="etiqueta">CENTRO DE JUGADOR</span>
+                <h2>Todo tu progreso en un solo lugar</h2>
+                <p>Crea tu cuenta, inicia sesión, consulta tu perfil y administra tus monedas.</p>
+            </div>
+            <div class="nivel-visual">LV <strong id="nivelHero">1</strong></div>
         </section>
 
-        <section class="tarjeta">
-            <h2>Inicio de sesión</h2>
-            <input id="correoLogin" type="email" placeholder="Correo electrónico">
-            <input id="passwordLogin" type="password" placeholder="Contraseña">
-            <button id="btnLogin">Iniciar sesión</button>
+        <div class="grid">
+            <section class="tarjeta">
+                <div class="titulo-tarjeta"><span>01</span><h2>Registro de jugador</h2></div>
+                <label for="nombreRegistro">Nombre</label>
+                <input id="nombreRegistro" type="text" placeholder="Nombre del jugador" autocomplete="name">
+                <label for="correoRegistro">Correo electrónico</label>
+                <input id="correoRegistro" type="email" placeholder="jugador@correo.com" autocomplete="email">
+                <label for="passwordRegistro">Contraseña</label>
+                <input id="passwordRegistro" type="password" placeholder="Mínimo 4 caracteres" autocomplete="new-password">
+                <button id="btnRegistro">Crear cuenta</button>
+            </section>
+
+            <section class="tarjeta">
+                <div class="titulo-tarjeta"><span>02</span><h2>Inicio de sesión</h2></div>
+                <label for="correoLogin">Correo electrónico</label>
+                <input id="correoLogin" type="email" placeholder="jugador@correo.com" autocomplete="email">
+                <label for="passwordLogin">Contraseña</label>
+                <input id="passwordLogin" type="password" placeholder="Tu contraseña" autocomplete="current-password">
+                <button id="btnLogin">Iniciar sesión</button>
+            </section>
+
+            <section class="tarjeta perfil">
+                <div class="titulo-tarjeta"><span>03</span><h2>Perfil del jugador</h2></div>
+                <div class="perfil-cabecera">
+                    <div id="perfilAvatar" class="avatar">?</div>
+                    <div><small>JUGADOR</small><h3 id="perfilNombre">Sin registrar</h3></div>
+                </div>
+                <div class="estadisticas">
+                    <div><span>Nivel</span><strong id="perfilNivel">1</strong></div>
+                    <div><span>Monedas</span><strong id="perfilMonedas">0</strong></div>
+                </div>
+            </section>
+
+            <section class="tarjeta tienda">
+                <div class="titulo-tarjeta"><span>04</span><h2>Tienda del videojuego</h2></div>
+                <p class="texto-secundario">Agrega monedas a tu perfil para usarlas dentro del juego.</p>
+                <label for="cantidadMonedas">Cantidad de monedas</label>
+                <input id="cantidadMonedas" type="number" min="1" max="10000" value="100">
+                <button id="btnComprar">Comprar monedas</button>
+            </section>
+        </div>
+
+        <section class="tarjeta soporte">
+            <div class="titulo-tarjeta"><span>05</span><h2>Soporte para jugadores</h2></div>
+            <p class="texto-secundario">¿Encontraste un problema? Cuéntanos brevemente qué ocurrió.</p>
+            <textarea id="mensajeSoporte" maxlength="500" placeholder="Describe tu problema..."></textarea>
+            <div class="acciones-soporte">
+                <small id="contador">0 / 500</small>
+                <button id="btnEnviar">Enviar mensaje</button>
+            </div>
         </section>
 
-        <section class="tarjeta">
-            <h2>Perfil del jugador</h2>
-            <p><strong>Nombre:</strong> <span id="perfilNombre">Sin registrar</span></p>
-            <p><strong>Avatar:</strong> <span id="perfilAvatar">Sin avatar</span></p>
-            <p><strong>Nivel:</strong> <span id="perfilNivel">1</span></p>
-            <p><strong>Monedas:</strong> <span id="perfilMonedas">0</span></p>
-        </section>
-
-        <section class="tarjeta">
-            <h2>Tienda del videojuego</h2>
-            <input id="cantidadMonedas" type="number" min="1" value="100">
-            <button id="btnComprar">Comprar monedas</button>
-        </section>
-
-        <section class="tarjeta">
-            <h2>Soporte para jugadores</h2>
-            <textarea id="mensajeSoporte" placeholder="Describe tu problema"></textarea>
-            <button id="btnEnviar" class="btn-enviar">Enviar</button>
-        </section>
-
-        <p id="estado" class="estado">Bienvenido a GamePlanet.</p>
+        <p id="estado" class="estado" role="status">Bienvenido a GamePlanet.</p>
     </main>
+
+    <footer>GamePlanet · Proyecto de desarrollo de videojuegos</footer>
 
     <script src="app/config/loginConfig.js"></script>
     <script src="app/models/user.js"></script>
