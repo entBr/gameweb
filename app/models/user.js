@@ -1,8 +1,13 @@
-const usuario = {
-  id: 1,
-  nombre: "Usuario",
-  foto: "avatar.png",
-  email: "usuario@correo.com",
-  password: "1234"
+window.jugador = JSON.parse(localStorage.getItem("gameplanetJugador")) || {
+    nombre: "",
+    correo: "",
+    password: "",
+    avatar: "?",
+    nivel: 1,
+    monedas: 0,
+    sesionActiva: false
 };
-module.exports = usuario;
+
+window.guardarJugador = function () {
+    localStorage.setItem("gameplanetJugador", JSON.stringify(window.jugador));
+};

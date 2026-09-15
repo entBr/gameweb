@@ -4,44 +4,63 @@ document.addEventListener("DOMContentLoaded", function () {
     const perfilAvatar = document.getElementById("perfilAvatar");
     const perfilNivel = document.getElementById("perfilNivel");
     const perfilMonedas = document.getElementById("perfilMonedas");
+    const nivelHero = document.getElementById("nivelHero");
+    const mensajeSoporte = document.getElementById("mensajeSoporte");
+    const contador = document.getElementById("contador");
+
+    function mostrarEstado(resultado) {
+        estado.textContent = resultado.mensaje;
+        estado.className = `estado ${resultado.ok ? "exito" : "error"}`;
+    }
 
     function actualizarPerfil() {
-        perfilNombre.textContent = window.jugador.nombre || "Sin registrar";
-        perfilAvatar.textContent = window.jugador.avatar || "Sin avatar";
-        perfilNivel.textContent = window.jugador.nivel || 1;
-        perfilMonedas.textContent = window.jugador.monedas || 0;
+        const jugador = window.jugador || {};
+        perfilNombre.textContent = jugador.nombre || "Sin registrar";
+        perfilAvatar.textContent = jugador.avatar || "?";
+        perfilNivel.textContent = jugador.nivel || 1;
+        perfilMonedas.textContent = Number(jugador.monedas || 0).toLocaleString("es-MX");
+        nivelHero.textContent = jugador.nivel || 1;
     }
 
     document.getElementById("btnRegistro").addEventListener("click", function () {
-        const nombre = document.getElementById("nombreRegistro").value;
-        const correo = document.getElementById("correoRegistro").value;
-        const password = document.getElementById("passwordRegistro").value;
-        const resultado = window.registrarJugador(nombre, correo, password);
-        estado.textContent = resultado.mensaje;
+        const resultado = window.registrarJugador(
+            document.getElementById("nombreRegistro").value,
+            document.getElementById("correoRegistro").value,
+            document.getElementById("passwordRegistro").value
+        );
+        mostrarEstado(resultado);
         actualizarPerfil();
     });
 
     document.getElementById("btnLogin").addEventListener("click", function () {
-        const correo = document.getElementById("correoLogin").value;
-        const password = document.getElementById("passwordLogin").value;
-        const resultado = window.iniciarSesion(correo, password);
-        estado.textContent = resultado.mensaje;
+        const resultado = window.iniciarSesion(
+            document.getElementById("correoLogin").value,
+            document.getElementById("passwordLogin").value
+        );
+        mostrarEstado(resultado);
+        actualizarPerfil();
     });
 
     document.getElementById("btnComprar").addEventListener("click", function () {
         const cantidad = Number(document.getElementById("cantidadMonedas").value);
         const resultado = window.comprarMonedas(cantidad);
-        estado.textContent = resultado.mensaje;
+        mostrarEstado(resultado);
         actualizarPerfil();
     });
 
+    mensajeSoporte.addEventListener("input", function () {
+        contador.textContent = `${mensajeSoporte.value.length} / 500`;
+    });
+
     document.getElementById("btnEnviar").addEventListener("click", function () {
-        const mensaje = document.getElementById("mensajeSoporte").value;
-        if (!mensaje.trim()) {
-            estado.textContent = "Escribe un mensaje para soporte.";
+        const mensaje = mensajeSoporte.value.trim();
+        if (!mensaje) {
+            mostrarEstado({ ok: false, mensaje: "Escribe un mensaje para soporte." });
             return;
         }
-        estado.textContent = "El mensaje fue enviado a soporte.";
+        mensajeSoporte.value = "";
+        contador.textContent = "0 / 500";
+        mostrarEstado({ ok: true, mensaje: "Tu mensaje fue enviado a soporte correctamente." });
     });
 
     actualizarPerfil();
